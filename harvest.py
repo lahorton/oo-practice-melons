@@ -17,6 +17,9 @@ class MelonType(object):
         self.name = name
         self.pairings = []
 
+    def __repr__(self):
+        return f'<MelonType {self.name}>'
+
 
     def add_pairing(self, pairing):
         """Add a food pairing to the instance's pairings list."""
@@ -77,9 +80,23 @@ def make_melon_type_lookup(melon_types):
 
 class Melon(object):
     """A melon in a melon harvest."""
+    def __init__(self, melon_type, shape_rating, color_rating, field_num,
+                 harvested_by):
+        self.melon_type = melon_type
+        self.shape_rating = shape_rating
+        self.color_rating = color_rating
+        self.field_num = field_num
+        self.harvested_by = harvested_by
 
-    # Fill in the rest
-    # Needs __init__ and is_sellable methods
+    def is_sellable(self):
+        """Returns True or False based on whether the melon is able to be sold
+        """
+
+        is_highly_rated = self.shape_rating > 5 and self.color_rating > 5
+        is_not_poisoned = self.field_num != 3
+
+        return is_highly_rated and is_not_poisoned
+
 
 def make_melons(melon_types):
     """Returns a list of Melon objects."""
